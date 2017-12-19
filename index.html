@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //將" 多 筆(data) "資料綁定到視覺元素
+
+        var arr = [85, 60, 99, 49, 77, 59];
+        var body = d3.select("body");
+
+        //Step1-1
+        bind(arr);
+        //Step2-1
+        render();
+
+
+        //Step1 自動資料綁定 
+
+        function bind(dataSet) {
+
+            //data 複數 
+            var selection = body.selectAll("div").data(dataSet);
+            //增加視覺元素 (資料數" 多 於 "視覺元素)
+            selection.enter().append("div");
+
+            //移除視覺元素 (資料數" 少 於 "視覺元素)
+            selection.exit().remove();
+        };
+
+        //Step2 呈現視覺化資料
+        //匿名函式:用來將綁定的資料取出。 d=data i=index 
+        //可以放在select或selectAll下放匿名函式，但要先做bind
+
+        function render() {
+            d3.selectAll("div").text(function(d, i) {
+                return (i + 1) + ":" + d;
+            }).style({
+                color: function(d) {
+                    if (d <
+                        70) {
+                        return "red";
+                    } else {
+                        return "green";
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
